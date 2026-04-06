@@ -3,14 +3,15 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <OutputType>Library</OutputType>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="TShockAPI">
-      <HintPath>TShockAPI.dll</HintPath>
+      <HintPath>./TShockAPI.dll</HintPath>
     </Reference>
     <Reference Include="TerrariaServer">
-      <HintPath>TerrariaServer.dll</HintPath>
+      <HintPath>./TerrariaServer.dll</HintPath>
     </Reference>
   </ItemGroup>
 
