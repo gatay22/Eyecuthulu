@@ -1,22 +1,28 @@
 name: Build Plugin
 
-on: [push]
+on:
+  push:
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v4
 
-    - name: Install Mono
-      run: sudo apt-get update && sudo apt-get install -y mono-devel
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 6.0.x
 
-    - name: Compile
-      run: mcs -target:library -out:RissEyeofCuthulu.dll RissEyeofCuthulu.cs -r:TShockAPI.dll -r:TerrariaServer.dll
+    - name: Build Plugin
+      run: dotnet build Eyecuthulu.csproj -c Release
 
-    - name: Upload Artifact
+    - name: Upload DLL
       uses: actions/upload-artifact@v4
       with:
-        name: plugin
-        path: RissEyeofCuthulu.dll
+        name: dll
+        path: |
+          **/bin/Release/*.dll
