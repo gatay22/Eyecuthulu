@@ -1,0 +1,22 @@
+name: Build Plugin
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install Mono
+      run: sudo apt-get update && sudo apt-get install -y mono-devel
+
+    - name: Compile
+      run: mcs -target:library -out:RissEyeofCuthulu.dll RissEyeofCuthulu.cs -r:TShockAPI.dll -r:TerrariaServer.dll
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: plugin
+        path: RissEyeofCuthulu.dll
